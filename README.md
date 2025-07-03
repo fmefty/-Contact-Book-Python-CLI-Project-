@@ -1,44 +1,68 @@
-# -Contact-Book-Python-CLI-Project-
-Absolutely, Farhan! Here's a more detailed and polished version of the GitHub description with a richer explanation of the code logic and structure:
+# Project Contact Book
 
----
+Contact = {}  # Dictionary to store contact names and phone numbers
 
-### 📒 Contact Book (Python CLI Project)
+# Function to display all contacts
+def ShowFunction():
+     print(Contact.items())  # (Optional/Debug) This prints all contact key-value pairs as a dict_items object
+     print("Name \t Contact")  # Header for contact list
+     for key in Contact:
+         print("{} \t {}".format(key, Contact.get(key)))  # Format and print each contact name and number
 
-This is a beginner-friendly **command-line Contact Book** built using Python. It allows users to **store, search, update, and delete contacts** directly from the terminal.
+# Infinite loop for menu options until user chooses to exit
+while True:
+     # Displaying the menu and taking user choice as input
+     choice = int(input("1. Add New Contact \n"
+                    "2. Search Contact  \n"
+                    "3. Display Contact \n"
+                    "4. Edit Contact \n"
+                    "5. Delete Contact \n"
+                    "6. Exit \n"
+                    "Please Write Number Between 1-6: "))
 
----
+     # Option 1: Add new contact
+     if choice == 1:
+         name = input("Add Your Contact Name: ")  # Get contact name from user
+         phone = input("Add Your Phone Number: ")  # Get phone number from user
+         Contact[name] = phone  # Store the name and phone in the dictionary
 
-### ✅ Features:
+     # Option 2: Search for a contact
+     elif choice == 2:
+         ContactName = input("Search the Contact: ")  # Ask for contact name to search
+         if ContactName in Contact:  # Check if the name exists
+             print(ContactName, "Contact Number is:  ", Contact[ContactName])  # Show contact number
+         else:
+             print(" Not found the contact.")  # If name not found
 
-* **Add Contact** – Store a name and phone number in memory
-* **Search Contact** – Look up contacts by name
-* **Display Contacts** – View all saved contacts neatly listed
-* **Edit Contact** – Update an existing contact’s phone number
-* **Delete Contact** – Remove a contact after confirmation
-* **Exit** – Cleanly exit the program
+     # Option 3: Display all contacts
+     elif choice == 3:
+         if not Contact:  # If the dictionary is empty
+             print("Contact book is empty")
+         else:
+             ShowFunction()  # Call function to show all contacts
 
----
+     # Option 4: Edit an existing contact
+     elif choice == 4:
+         EditContact = input("Edit Your Contact: ")  # Get name to edit
+         if EditContact in Contact:  # If name exists
+             phone = input("Change Your Number: ")  # Ask for new number
+             Contact[EditContact] = phone  # Update the contact
+             print("Contact Update Successfully ")
+             ShowFunction()  # Show updated contact list
+         else:
+             print("Name is Not Found")  # If name doesn't exist
 
-### 🧠 How It Works:
+     # Option 5: Delete a contact
+     elif choice == 5:
+         Del_Contact = input("which Contact Do you want to delete?: ")  # Ask for contact to delete
+         if Del_Contact in Contact:  # If name exists
+             DeletedConfirm = input("Do you want to delete this contact [y/n]")  # Confirm deletion
+             if DeletedConfirm == "y" or DeletedConfirm == "Y":  # If user confirms
+                 Contact.pop(Del_Contact)  # Delete the contact
+             ShowFunction()  # Show contact list after deletion
+         else:
+             print("The name is not found in the contact")  # If name doesn't exist
 
-* The program uses a Python **dictionary** (`Contact = {}`) where the key is the name and the value is the phone number.
-* A function called `ShowFunction()` is used to print the contact list in a tabular format.
-* The main program runs inside a `while True` loop, repeatedly displaying a numbered menu to the user.
-* Based on the user's input (`choice`), it executes the appropriate block of code using `if-elif-else` statements.
-* Input is taken using `input()`, and data is stored or modified in the dictionary accordingly.
-* The program will continue running until the user selects **option 6** to exit.
-
----
-
-### 🚀 Learning Objectives:
-
-This project is great for learning:
-
-* Working with **loops**, **conditionals**, and **functions**
-* **Dictionaries** for key-value data storage
-* Taking and validating **user input**
-* Building a **menu-based CLI interface**
-
----
-
+     # Option 6 or any other number: Exit the loop
+     else:
+         break  # Exit the program
